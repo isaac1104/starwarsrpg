@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <title>Star Wars RPG</title>
+</head>
+
+<body>
+  <div id="main-container" class="container">
+    <div class="jumbotron">
+      <h1 id="title" class="text-center"><strong>Star Wars: RPG</strong></h1>
+      <hr>
+      <div class="text-center">
+        <button class="btn btn-success btn-xs theme-button"><span class="glyphicon glyphicon-music"></span> Play Theme!</button>
+        <button class="btn btn-danger btn-xs pause-button"><span class="glyphicon glyphicon-pause"></span> Pause Song</button>
+      </div>
+    </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 id="choose" class="panel-title text-center">Choose Your Character</h3>
+      </div>
+      <div id="selectCharacter" class="panel-body row">
+        <div id="anakin" class="text-center col-lg-3">
+          <img id="anakin-pic" src="assets/images/anakin.jpg" alt="anakin" data-name="Anakin Skywalker">
+        </div>
+        <div id="obiwan" class="text-center col-lg-3">
+          <img src="assets/images/obiwan.jpg" alt="obiwan">
+        </div>
+        <div id="griv" class="text-center col-lg-3">
+          <img src="assets/images/griv.jpeg" alt="griv">
+        </div>
+        <div id="palpatine" class="text-center col-lg-3">
+          <img src="assets/images/palpatine.jpg" alt="palpatine">
+        </div>
+      </div>
+    </div>
+    <div id="yourCharacter" class="panel panel-info text-center">
+      <div class="panel-heading">
+        <h3 class="panel-title text-center">Your Character</h3>
+      </div>
+      <div class="panel-body text-center"></div>
+    </div>
+    <div id="yourEnemy" class="panel panel-danger text-center">
+      <div class="panel-heading">
+        <h3 class="panel-title text-center">Your Enemy</h3>
+      </div>
+      <div class="panel-body text-center"></div>
+    </div>
+    <div id="battle" class="panel panel-warning">
+      <div class="panel-heading text-center">
+        <h3 class="panel-title text-center"></h3>
+        <button id="attack-btn" class="btn btn-danger btn-lg">Attack</button>
+      </div>
+      <div class="panel-body text-center"></div>
+    </div>
+  </div>
+  <script src="assets/javascript/game.js" charset="utf-8"></script>
+</body>
+
+</html>
