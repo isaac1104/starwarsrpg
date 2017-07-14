@@ -1,73 +1,154 @@
-//Characters
-var anakin = document.getElementById("#anakin-pic");
-var anakin = {
-  name: "Anakin Skywalker",
-  hp: 120,
-  ap: 8,
-  cap: 15,
-  image: '<img id="anakin" src="assets/images/anakin.jpg"/>'
-};
+//Characters//
+$("#anakin-pic").data({
+  "name": "Anakin Skywalker",
+  "hp": 120,
+  "ap": 8,
+  "cap": 15
+});
 
-var obiwan = {
-  name: "Obi Wan Kenobi",
-  hp: 150,
-  ap: 6,
-  cap: 20,
-  image: '<img id="obiwan" src="assets/images/obiwan.jpg"/>'
-};
+$("#obiwan-pic").data({
+  "name": "Obi Wan Kenobi",
+  "hp": 150,
+  "ap": 6,
+  "cap": 20
+});
 
-var griv = {
-  name: "General Grievious",
-  hp: 180,
-  ap: 5,
-  cap: 18,
-  image: '<img id="griv" src="assets/images/griv.jpeg"/>'
-};
+$("#griv-pic").data({
+  "name": "General Grievious",
+  "hp": 180,
+  "ap": 5,
+  "cap": 18
+});
 
-var palpatine = {
-  name: "Senator Palpatine",
-  hp: 100,
-  ap: 4,
-  cap: 12,
-  image: '<img id="palpatine" src="assets/images/palpatine.jpg"/>'
-};
+$("#palpatine-pic").data({
+  "name": "Senator Palpatine",
+  "hp": 100,
+  "ap": 4,
+  "cap": 12
+});
 
-var yourCharacter = "";
-var currentEnemy = "";
-var yourEnemies = [];
-var gameStage = "inital";
+//Game stage that prevents duplicate selections//
+var gameStage = "choose-character";
 
 //Game function//
 $(document).ready(function() {
-  //Play theme song//
-  var audioElement = document.createElement("audio");
-  audioElement.setAttribute("src", "Assets/audio/theme.mp3");
+  //Play & pause theme song//
+  var getAudio = document.createElement("audio");
+  getAudio.setAttribute("src", "Assets/audio/theme.mp3");
   $(".theme-button").on("click", function() {
-    audioElement.play();
+    getAudio.play();
   });
   $(".pause-button").on("click", function() {
-    audioElement.pause();
+    getAudio.pause();
   });
-  //Only display the available characters upon load//
+  //Display the character selection box upon load//
   $("#yourCharacter").hide();
   $("#yourEnemy").hide();
   $("#battle").hide();
   $("img").on("click", function() {
     //Player selects which character to play as//
-    if (gameStage === "inital") {
-      $("#yourCharacter").append(this);
+    if (gameStage === "choose-character") {
+      $("#characterPic").append(this);
+      charAttr = $(this).data();
+      console.log(charAttr);
       $(this).css("width", "20%");
-      $("#yourCharacter").show();
+      $("#yourCharacter").fadeIn();
+      $("#characterAttr").text(charAttr.name + " / " + "HP= " + charAttr.hp);
       $("#choose").html("Choose Your Enemy For The First Battle");
-      gameStage = "round-1";
+      gameStage = "choose-1st-enemy";
+
       //Player selects the 1st enemy to fight//
-    } else if (gameStage === "round-1") {
-      $("#yourEnemy").append(this);
+    } else if (gameStage === "choose-1st-enemy") {
+      $("#enemyPic").append(this);
+      enemyAttr = $(this).data();
+      console.log(enemyAttr);
       $(this).css("width", "20%");
-      $("#yourEnemy").show();
-      $("#battle").show();
+      $("#yourEnemy").fadeIn();
+      $("#battle").fadeIn();
+      $("#attack-btn").fadeIn();
+      $("#enemyAttr").text(enemyAttr.name + " / " + "HP= " + enemyAttr.hp);
       $("#choose").html("Your Enemies Awating For The Next Battle");
-      gameStage = "round-1-battle";
+      gameStage = "battle-1";
+
+      //Player selects the 2nd enemy to fight//
+    } else if (gameStage === "choose-2nd-enemy") {
+      $("#enemyPic").append(this);
+      enemyAttr = $(this).data();
+      console.log(enemyAttr);
+      $(this).css("width", "20%");
+      $("#yourEnemy").fadeIn();
+      $("#battle").fadeIn();
+      $("#attack-btn").fadeIn();
+      $("#enemyAttr").text(enemyAttr.name + " / " + "HP= " + enemyAttr.hp);
+      $("#choose").html("Your Enemies Awating For The Next Battle");
+      gameStage = "battle-2";
+
+      //Player fights the last enemy//
+    } else if (gameStage === "choose-3rd-enemy") {
+      $("#enemyPic").append(this);
+      enemyAttr = $(this).data();
+      console.log(enemyAttr);
+      $(this).css("width", "20%");
+      $("#yourEnemy").fadeIn();
+      $("#battle").fadeIn();
+      $("#attack-btn").fadeIn();
+      $("#enemyAttr").text(enemyAttr.name + " / " + "HP= " + enemyAttr.hp);
+      $("#select-character").fadeOut();
+      gameStage = "battle-3";
+    }
+  });
+
+  //Make sure the attack button triggers only once//
+  $("#attack").unbind("click");
+  $("#attack").on("click", function() {
+    //Lightsaber sound effect//
+    var attackAudio = document.createElement("audio");
+    attackAudio.setAttribute("src", "Assets/audio/fight.mp3");
+    attackAudio.play();
+
+    //First battle//
+    if (gameStage === "battle-1") {
+      charAttr.ap = charAttr.ap++;
+      charAttr.hp -= enemyAttr.cap;
+      enemyAttr.hp -= charAttr.ap;
+      console.log(charAttr.hp);
+      console.log(enemyAttr.hp);
+      if (enemyAttr.hp <= 0) {
+        alert("You have won the battle! Choose your next enemy");
+        gameStage = "choose-2nd-enemy";
+        $("#enemyPic").empty();
+        $("#yourEnemy").fadeOut();
+        $("#battle").fadeOut();
+      } //Make losing condition if player health >= 0//
+
+      //Second battle//
+    } else if (gameStage === "battle-2") {
+      charAttr.ap += charAttr.ap;
+      charAttr.hp -= enemyAttr.cap;
+      enemyAttr.hp -= charAttr.ap;
+      console.log(charAttr.hp);
+      console.log(enemyAttr.hp);
+      if (enemyAttr.hp <= 0) {
+        alert("You have won the battle! Choose your next enemy");
+        gameStage = "choose-3rd-enemy";
+        $("#enemyPic").empty();
+        $("#yourEnemy").fadeOut();
+        $("#battle").fadeOut();
+      }
+
+      //Last battle//
+    } else if (gameStage === "battle-3") {
+      charAttr.ap += charAttr.ap;
+      charAttr.hp -= enemyAttr.cap;
+      enemyAttr.hp -= charAttr.ap;
+      console.log(charAttr.hp);
+      console.log(enemyAttr.hp);
+      if (enemyAttr.hp <= 0) {
+        alert("You Brought Justice and Peace to the Galaxy!");
+        $("#yourEnemy").empty();
+        $("#yourEnemy").fadeOut();
+        $("#battle").fadeOut();
+      }
     }
   });
 });
