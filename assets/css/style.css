@@ -11,6 +11,26 @@ body {
   background-image: url("../images/space.png");
 }
 
+#select-character {
+  background-image: url("../images/space.png");
+}
+
+#yourCharacter {
+  background-image: url("../images/space.png");
+}
+
+#yourEnemy {
+  background-image: url("../images/space.png");
+}
+
+#battle {
+  background-image: url("../images/space.png");
+}
+
 #title {
   color: #e5b13a;
+}
+
+#enemyName, #enemyAttr, #characterName, #characterAttr {
+  color: white;
 }
